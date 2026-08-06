@@ -11,6 +11,7 @@ import Blog from "./pages/Blog";
 import Article from "./pages/Article";
 import NotFound from "./pages/NotFound";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import LandingConversa from "./pages/LandingConversa";
 
 const AdminLayout = lazy(() => import("./components/admin/AdminLayout"));
 const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
@@ -38,6 +39,7 @@ export default function App() {
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/categoria/:categorySlug" element={<Blog />} />
+            <Route path="/marcar-conversa" element={<LandingConversa />} />
             <Route path="/blog/:slug" element={<Article />} />
             <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
             <Route path="*" element={<NotFound />} />

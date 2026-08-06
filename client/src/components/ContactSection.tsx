@@ -3,18 +3,27 @@ import ContactForm from "./ContactForm";
 import Eyebrow from "./Eyebrow";
 import { CONTACT_EMAIL, WHATSAPP_DISPLAY, WHATSAPP_URL } from "../lib/constants";
 
-export default function ContactSection() {
+interface ContactSectionProps {
+  eyebrow?: string;
+  heading?: string;
+  description?: string;
+}
+
+export default function ContactSection({
+  eyebrow = "Fale Comigo",
+  heading = "O primeiro passo é uma conversa",
+  description = "Conte, em poucas palavras, o que está acontecendo. Eu leio com atenção e retorno pessoalmente com os próximos passos possíveis para o seu caso.",
+}: ContactSectionProps) {
   return (
     <section id="contato" className="scroll-mt-28 lg:scroll-mt-32 bg-cream py-24 lg:py-36">
       <div className="mx-auto grid max-w-6xl gap-14 px-4 sm:px-6 lg:grid-cols-2 lg:gap-20 lg:px-8">
         <Reveal>
-          <Eyebrow>Fale Comigo</Eyebrow>
+          <Eyebrow>{eyebrow}</Eyebrow>
           <h2 className="max-w-md text-[1.85rem] font-normal leading-[1.25] tracking-tight text-coffee sm:text-[2.15rem]">
-            O primeiro passo é uma conversa
+            {heading}
           </h2>
           <p className="mt-5 max-w-md text-[0.975rem] leading-relaxed text-ink/70">
-            Conte, em poucas palavras, o que está acontecendo. Eu leio com atenção e retorno
-            pessoalmente com os próximos passos possíveis para o seu caso.
+            {description}
           </p>
 
           <div className="mt-9 space-y-4">
