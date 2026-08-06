@@ -11,3 +11,6 @@ server/uploads/*
 .DS_Store
 *.log
 .vite/
+
+# Gerado em build pelo scripts/generate-redirects.mjs (Netlify)
+client/public/_redirects

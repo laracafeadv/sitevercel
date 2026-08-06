@@ -1,0 +1,15 @@
+[build]
+  command = "pnpm install --frozen-lockfile && node scripts/generate-redirects.mjs && pnpm --filter client build"
+  publish = "client/dist"
+
+[build.environment]
+  NODE_VERSION = "22"
+
+# Regras de redirecionamento estáticas (fallback do SPA).
+# As rotas /api/* e /uploads/* são geradas dinamicamente pelo script
+# scripts/generate-redirects.mjs a partir da variável de ambiente BACKEND_URL
+# (configurada no painel do Netlify) e ficam no topo do arquivo _redirects final.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
