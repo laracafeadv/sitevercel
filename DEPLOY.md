@@ -71,6 +71,30 @@ precisa saber o endereço do backend para funcionar.
 - Envie uma mensagem pelo formulário de contato e confira se ela aparece
   no painel admin, em "Mensagens".
 
+## Aviso por e-mail quando alguém preenche o formulário de contato
+
+Por padrão, mensagens do formulário de contato só aparecem no painel admin —
+nada te avisa automaticamente. Para receber um e-mail (que também notifica
+seu celular, se o Gmail estiver instalado) a cada nova mensagem:
+
+1. Acesse https://myaccount.google.com/apppasswords com a conta
+   `laracafe.adv@gmail.com` (pode pedir para ativar a verificação em duas
+   etapas primeiro, caso ainda não esteja ativa — é obrigatório para gerar
+   a senha de app).
+2. Crie uma nova senha de app (dê um nome como "Site Lara Café") e copie o
+   código gerado (16 letras, sem espaços).
+3. No painel do Render, vá em **Environment** e adicione:
+   - `EMAIL_USER` = `laracafe.adv@gmail.com`
+   - `EMAIL_APP_PASSWORD` = o código de 16 letras que você copiou
+   - `NOTIFICATION_EMAIL` = para onde o aviso deve ir (pode ser o mesmo
+     `laracafe.adv@gmail.com`, ou outro e-mail seu)
+4. Salve — o Render reinicia o serviço automaticamente e passa a enviar o
+   aviso a partir da próxima mensagem recebida.
+
+**Importante:** essa senha de app é diferente da senha normal da sua conta
+Google — nunca coloque sua senha normal aqui. Se quiser desativar o aviso
+depois, é só remover a senha de app em myaccount.google.com/apppasswords.
+
 ## Domínio próprio (opcional)
 
 Depois que tudo estiver funcionando, você pode apontar seu domínio (ex:

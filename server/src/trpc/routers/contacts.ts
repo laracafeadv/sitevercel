@@ -3,6 +3,7 @@ import { TRPCError } from "@trpc/server";
 import { eq, desc } from "drizzle-orm";
 import { router, publicProcedure, adminProcedure } from "../trpc.js";
 import { schema } from "../../db/index.js";
+import { sendContactNotification } from "../../lib/mailer.js";
 
 export const contactsRouter = router({
   submit: publicProcedure
@@ -16,6 +17,7 @@ export const contactsRouter = router({
     )
     .mutation(async ({ ctx, input }) => {
       const [created] = await ctx.db.insert(schema.contactSubmissions).values(input).returning();
+      void sendContactNotification(input);
       return created;
     }),
 
