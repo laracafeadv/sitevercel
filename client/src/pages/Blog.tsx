@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import SEO from "../components/SEO";
 import Reveal from "../components/Reveal";
 import Eyebrow from "../components/Eyebrow";
@@ -12,8 +12,8 @@ import type { ArticleSummary } from "../lib/types";
 const PAGE_SIZE = 6;
 
 export default function Blog() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const category = searchParams.get("categoria") || "todos";
+  const { categorySlug } = useParams<{ categorySlug?: string }>();
+  const category = categorySlug || "todos";
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
@@ -41,15 +41,12 @@ export default function Blog() {
     setItems((prev) => (page === 1 ? data.items : [...prev, ...data.items]));
   }, [data, page]);
 
-  function handleCategoryChange(slug: string) {
-    setSearchParams(slug === "todos" ? {} : { categoria: slug });
-  }
-
   return (
     <div>
       <SEO
         title="Blog Jurídico | Lara Café Advocacia"
         description="Reflexões sobre divórcio, união estável, inventário e planejamento sucessório, escritas para ajudar você a decidir com mais clareza."
+        path={category === "todos" ? "/blog" : `/blog/categoria/${category}`}
       />
 
       <section className="relative flex h-64 items-end overflow-hidden bg-coffee sm:h-72">
@@ -81,7 +78,7 @@ export default function Blog() {
         </p>
 
         <div className="mt-8">
-        <CategoryPills active={category} onChange={handleCategoryChange} />
+        <CategoryPills active={category} />
       </div>
 
       <div className="mt-4 lg:hidden">

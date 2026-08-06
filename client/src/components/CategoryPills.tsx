@@ -1,11 +1,11 @@
+import { Link } from "react-router-dom";
 import { trpc } from "../lib/trpc";
 
 interface CategoryPillsProps {
   active: string;
-  onChange: (slug: string) => void;
 }
 
-export default function CategoryPills({ active, onChange }: CategoryPillsProps) {
+export default function CategoryPills({ active }: CategoryPillsProps) {
   const { data: categories } = trpc.categories.list.useQuery();
 
   const items = [{ id: 0, name: "Todos", slug: "todos" }, ...(categories ?? [])];
@@ -13,9 +13,9 @@ export default function CategoryPills({ active, onChange }: CategoryPillsProps) 
   return (
     <div className="scrollbar-none -mx-4 flex gap-2 overflow-x-auto px-4 pb-2 sm:mx-0 sm:flex-wrap sm:px-0">
       {items.map((cat) => (
-        <button
+        <Link
           key={cat.slug}
-          onClick={() => onChange(cat.slug)}
+          to={cat.slug === "todos" ? "/blog" : `/blog/categoria/${cat.slug}`}
           className={`shrink-0 whitespace-nowrap rounded-full border px-5 py-2 text-sm font-medium transition-colors ${
             active === cat.slug
               ? "border-coffee bg-coffee text-cream"
@@ -23,7 +23,7 @@ export default function CategoryPills({ active, onChange }: CategoryPillsProps) 
           }`}
         >
           {cat.name}
-        </button>
+        </Link>
       ))}
     </div>
   );

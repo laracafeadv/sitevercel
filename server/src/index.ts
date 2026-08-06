@@ -10,6 +10,7 @@ import { appRouter } from "./trpc/router.js";
 import { createContext } from "./trpc/context.js";
 import { uploadRouter } from "./routes/upload.js";
 import { exportContactsRouter } from "./routes/exportContacts.js";
+import { sitemapRouter } from "./routes/sitemap.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3001;
@@ -35,6 +36,7 @@ app.use(
 
 app.use("/api/upload", uploadRouter);
 app.use("/api/admin/contacts/export.csv", exportContactsRouter);
+app.use("/sitemap.xml", sitemapRouter);
 
 app.get("/api/health", (_req, res) => res.json({ ok: true }));
 

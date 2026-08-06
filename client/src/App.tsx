@@ -37,6 +37,7 @@ export default function App() {
           <Route element={<PublicLayout />}>
             <Route path="/" element={<Home />} />
             <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/categoria/:categorySlug" element={<Blog />} />
             <Route path="/blog/:slug" element={<Article />} />
             <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
             <Route path="*" element={<NotFound />} />

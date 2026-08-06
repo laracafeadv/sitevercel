@@ -72,7 +72,7 @@ export default function Article() {
           Blog
         </Link>
         <span>&gt;</span>
-        <Link to={`/blog?categoria=${article.categorySlug}`} className="hover:text-coffee">
+        <Link to={`/blog/categoria/${article.categorySlug}`} className="hover:text-coffee">
           {article.categoryName}
         </Link>
         <span>&gt;</span>
@@ -192,7 +192,7 @@ export default function Article() {
               {categories?.map((cat) => (
                 <li key={cat.id}>
                   <Link
-                    to={`/blog?categoria=${cat.slug}`}
+                    to={`/blog/categoria/${cat.slug}`}
                     className="text-sm text-ink/70 hover:text-coffee"
                   >
                     {cat.name} ({cat.articleCount})

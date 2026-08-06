@@ -42,7 +42,7 @@ export default function BlogSidebar({ search, onSearchChange, activeCategory }: 
           {categories?.map((cat) => (
             <li key={cat.id}>
               <Link
-                to={`/blog?categoria=${cat.slug}`}
+                to={`/blog/categoria/${cat.slug}`}
                 className={`flex items-center justify-between text-sm transition-colors hover:text-coffee ${
                   activeCategory === cat.slug ? "font-semibold text-coffee" : "text-ink/70"
                 }`}
