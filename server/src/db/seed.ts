@@ -1,8 +1,13 @@
 import "dotenv/config";
 import bcrypt from "bcryptjs";
+import crypto from "node:crypto";
 import { eq } from "drizzle-orm";
 import { db, schema } from "./index.js";
 import { slugify } from "../lib/slugify.js";
+
+function generateRandomPassword() {
+  return crypto.randomBytes(12).toString("base64url");
+}
 
 async function seed() {
   console.log("Seeding database...");
@@ -111,7 +116,8 @@ async function seed() {
   }
 
   const adminEmail = process.env.ADMIN_EMAIL || "admin@laracafeadvocacia.com.br";
-  const adminPassword = process.env.ADMIN_PASSWORD || "TrocarSenha123!";
+  const generatedPassword = process.env.ADMIN_PASSWORD ? null : generateRandomPassword();
+  const adminPassword = process.env.ADMIN_PASSWORD || generatedPassword!;
   const existingAdmin = await db
     .select()
     .from(schema.adminUsers)
@@ -125,9 +131,11 @@ async function seed() {
       name: "Lara Café",
     });
     console.log(`Admin user created: ${adminEmail}`);
-    if (!process.env.ADMIN_PASSWORD) {
+    if (generatedPassword) {
       console.log(
-        `⚠️  Using default password "${adminPassword}". Set ADMIN_EMAIL/ADMIN_PASSWORD env vars before deploying.`
+        `⚠️  ADMIN_PASSWORD não foi definido — gerei uma senha aleatória só para este login: "${generatedPassword}"\n` +
+          `   Anote agora, ela não será exibida de novo. Para definir a sua própria senha, configure\n` +
+          `   ADMIN_PASSWORD no ambiente e rode o seed de novo (apague o usuário admin antes, se já existir).`
       );
     }
   } else {
