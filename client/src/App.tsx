@@ -1,5 +1,6 @@
 import { Suspense, lazy } from "react";
 import { Routes, Route } from "react-router-dom";
+import { MotionConfig } from "framer-motion";
 import { AuthProvider } from "./hooks/useAuth";
 import ScrollToTop from "./components/ScrollToTop";
 import PublicLayout from "./components/PublicLayout";
@@ -29,43 +30,45 @@ function AdminFallback() {
 
 export default function App() {
   return (
-    <AuthProvider>
-      <ScrollToTop />
-      <Routes>
-        <Route element={<PublicLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/blog/:slug" element={<Article />} />
-          <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
-          <Route path="*" element={<NotFound />} />
-        </Route>
+    <MotionConfig reducedMotion="user">
+      <AuthProvider>
+        <ScrollToTop />
+        <Routes>
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/blog" element={<Blog />} />
+            <Route path="/blog/:slug" element={<Article />} />
+            <Route path="/politica-de-privacidade" element={<PrivacyPolicy />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
 
-        <Route
-          path="/admin/login"
-          element={
-            <Suspense fallback={<AdminFallback />}>
-              <AdminLogin />
-            </Suspense>
-          }
-        />
-        <Route
-          path="/admin"
-          element={
-            <ProtectedRoute>
+          <Route
+            path="/admin/login"
+            element={
               <Suspense fallback={<AdminFallback />}>
-                <AdminLayout />
+                <AdminLogin />
               </Suspense>
-            </ProtectedRoute>
-          }
-        >
-          <Route index element={<Dashboard />} />
-          <Route path="articles" element={<ArticlesList />} />
-          <Route path="articles/new" element={<ArticleForm />} />
-          <Route path="articles/:id/edit" element={<ArticleForm />} />
-          <Route path="categories" element={<CategoriesList />} />
-          <Route path="contacts" element={<ContactsList />} />
-        </Route>
-      </Routes>
-    </AuthProvider>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <Suspense fallback={<AdminFallback />}>
+                  <AdminLayout />
+                </Suspense>
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Dashboard />} />
+            <Route path="articles" element={<ArticlesList />} />
+            <Route path="articles/new" element={<ArticleForm />} />
+            <Route path="articles/:id/edit" element={<ArticleForm />} />
+            <Route path="categories" element={<CategoriesList />} />
+            <Route path="contacts" element={<ContactsList />} />
+          </Route>
+        </Routes>
+      </AuthProvider>
+    </MotionConfig>
   );
 }

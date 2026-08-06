@@ -40,6 +40,27 @@ export default function Article() {
       <SEO
         title={`${article.title} | Lara Café Advocacia`}
         description={article.excerpt ?? undefined}
+        path={`/blog/${article.slug}`}
+        image={
+          article.imageUrl
+            ? `https://laracafeadvocacia.com.br${article.imageUrl}`
+            : undefined
+        }
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: article.title,
+          description: article.excerpt ?? undefined,
+          image: article.imageUrl
+            ? `https://laracafeadvocacia.com.br${article.imageUrl}`
+            : undefined,
+          datePublished: article.publishedAt ?? article.createdAt,
+          dateModified: article.publishedAt ?? article.createdAt,
+          author: { "@type": "Person", name: article.author },
+          publisher: { "@type": "Organization", name: "Lara Café Advocacia" },
+          mainEntityOfPage: `https://laracafeadvocacia.com.br/blog/${article.slug}`,
+        }}
       />
 
       <nav className="mb-6 flex flex-wrap items-center gap-1 text-xs text-ink/50">
