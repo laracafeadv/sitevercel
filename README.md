@@ -3,6 +3,10 @@
 Site institucional para escritório de advocacia especializado em Direito de Família,
 Sucessões e Direito Patrimonial — com blog jurídico e painel administrativo completo.
 
+> **Vai publicar este site?** Siga o **`DEPLOY.md`** — ele tem o passo a passo completo
+> (Netlify + Render) e inclui uma etapa opcional, mas recomendada, para a Lara receber
+> um e-mail sempre que alguém preencher o formulário de contato.
+
 ## Stack
 
 - **Frontend:** React 19 + TypeScript + Vite + Tailwind CSS 4 + Framer Motion + React Router 7
@@ -62,12 +66,14 @@ pnpm start   # sobe o servidor Express, que também serve o client/dist
 | `CLIENT_ORIGIN` | Origem do frontend (CORS) |
 | `UPLOAD_DIR` | Diretório de upload de imagens |
 | `ADMIN_EMAIL` / `ADMIN_PASSWORD` | Credenciais do usuário admin criado pelo seed |
+| `EMAIL_USER` / `EMAIL_APP_PASSWORD` / `NOTIFICATION_EMAIL` | Opcionais — ativam o aviso por e-mail quando alguém preenche o formulário de contato. Sem eles, o site funciona normalmente, só sem o aviso. Ver **"Aviso por e-mail"** em `DEPLOY.md` para o passo a passo (senha de app do Gmail). |
 
 ## Funcionalidades
 
 - Landing page completa (hero, sobre, áreas de atuação, depoimentos, CTA final, contato)
 - Blog jurídico com categorias, busca, paginação "carregar mais" e página de artigo
-- Formulário de contato com validação em tempo real, salvo no banco
+- Formulário de contato com validação em tempo real, salvo no banco, com aviso
+  por e-mail opcional a cada nova mensagem (ver variáveis `EMAIL_*` acima)
 - Botão flutuante do WhatsApp
 - Painel administrativo protegido por login:
   - Dashboard com indicadores
