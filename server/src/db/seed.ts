@@ -110,34 +110,6 @@ async function seed() {
     console.log("Articles already exist, skipping.");
   }
 
-  const existingTestimonials = await db.select().from(schema.testimonials);
-  if (existingTestimonials.length === 0) {
-    await db.insert(schema.testimonials).values([
-      {
-        authorName: "Maria Silva",
-        profession: "Empresária",
-        content:
-          "A Lara foi fundamental na resolução do meu caso. Muito profissional e atenciosa.",
-        rating: 5,
-      },
-      {
-        authorName: "João Santos",
-        profession: "Médico",
-        content: "Excelente orientação jurídica. Recomendo para todos os meus amigos.",
-        rating: 5,
-      },
-      {
-        authorName: "Ana Costa",
-        profession: "Professora",
-        content: "Muito satisfeita com o resultado. Profissional competente e dedicada.",
-        rating: 5,
-      },
-    ]);
-    console.log("Testimonials seeded.");
-  } else {
-    console.log("Testimonials already exist, skipping.");
-  }
-
   const adminEmail = process.env.ADMIN_EMAIL || "admin@laracafeadvocacia.com.br";
   const adminPassword = process.env.ADMIN_PASSWORD || "TrocarSenha123!";
   const existingAdmin = await db
