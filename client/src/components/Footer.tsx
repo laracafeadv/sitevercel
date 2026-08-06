@@ -34,6 +34,11 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
+              <li>
+                <Link to="/glossario" className="transition-colors hover:text-cream">
+                  Glossário
+                </Link>
+              </li>
             </ul>
           </div>
 

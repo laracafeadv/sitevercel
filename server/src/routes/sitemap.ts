@@ -17,8 +17,26 @@ sitemapRouter.get("/", async (_req, res) => {
   const staticUrls = [
     { loc: "/", changefreq: "monthly", priority: "1.0" },
     { loc: "/blog", changefreq: "weekly", priority: "0.8" },
+    { loc: "/marcar-conversa", changefreq: "monthly", priority: "0.7" },
+    { loc: "/glossario", changefreq: "monthly", priority: "0.6" },
     { loc: "/politica-de-privacidade", changefreq: "yearly", priority: "0.3" },
   ];
+
+  const GLOSSARY_SLUGS = [
+    "uniao-estavel",
+    "contrato-de-convivencia",
+    "pacto-antenupcial",
+    "divorcio-consensual",
+    "inventario-extrajudicial",
+    "testamento",
+    "partilha-de-bens",
+  ];
+
+  const glossaryUrls = GLOSSARY_SLUGS.map((slug) => ({
+    loc: `/glossario/${slug}`,
+    changefreq: "yearly",
+    priority: "0.5",
+  }));
 
   const categoryUrls = categories.map((c) => ({
     loc: `/blog/categoria/${c.slug}`,
@@ -33,7 +51,7 @@ sitemapRouter.get("/", async (_req, res) => {
     lastmod: a.publishedAt ? new Date(a.publishedAt).toISOString().slice(0, 10) : undefined,
   }));
 
-  const entries = [...staticUrls, ...categoryUrls, ...articleUrls]
+  const entries = [...staticUrls, ...categoryUrls, ...glossaryUrls, ...articleUrls]
     .map(
       (u) => `  <url>
     <loc>${SITE_URL}${u.loc}</loc>
