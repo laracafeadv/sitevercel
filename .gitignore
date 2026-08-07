@@ -1,0 +1,18 @@
+node_modules/
+dist/
+build/
+.env
+.env.local
+*.db
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+server/uploads/*
+!server/uploads/.gitkeep
+.DS_Store
+*.log
+.vite/
+
+# Gerado em build pelo scripts/generate-redirects.mjs (Netlify)
+client/public/_redirects

@@ -1,0 +1,42 @@
+services:
+  - type: web
+    name: lara-cafe-advocacia-api
+    runtime: node
+    plan: starter
+    region: oregon
+    buildCommand: pnpm install --frozen-lockfile && pnpm --filter server build
+    startCommand: pnpm --filter server start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DATABASE_URL
+        value: /data/lara-cafe.db
+      - key: UPLOAD_DIR
+        value: /data/uploads
+      - key: CLIENT_ORIGIN
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      # Opcionais — aviso por e-mail ao receber mensagem de contato.
+      # Deixe em branco para desativar. Veja DEPLOY.md para o passo a passo
+      # de como gerar EMAIL_APP_PASSWORD (senha de app do Gmail).
+      - key: EMAIL_USER
+        sync: false
+      - key: EMAIL_APP_PASSWORD
+        sync: false
+      - key: NOTIFICATION_EMAIL
+        sync: false
+    disk:
+      name: lara-cafe-data
+      mountPath: /data
+      sizeGB: 1
