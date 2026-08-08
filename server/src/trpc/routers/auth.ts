@@ -2,7 +2,7 @@ import { z } from "zod";
 import { TRPCError } from "@trpc/server";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { eq } from "drizzle-orm";
+import { sql } from "drizzle-orm";
 import { router, publicProcedure, adminProcedure } from "../trpc.js";
 import { schema } from "../../db/index.js";
 import { JWT_SECRET, COOKIE_NAME } from "../context.js";
@@ -23,7 +23,7 @@ export const authRouter = router({
       const [user] = await ctx.db
         .select()
         .from(schema.adminUsers)
-        .where(eq(schema.adminUsers.email, input.email.toLowerCase().trim()));
+        .where(sql`LOWER(${schema.adminUsers.email}) = ${input.email.toLowerCase().trim()}`);
 
       if (!user) {
         throw new TRPCError({ code: "UNAUTHORIZED", message: "Credenciais inválidas." });
