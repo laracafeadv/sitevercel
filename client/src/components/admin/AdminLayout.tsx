@@ -5,6 +5,7 @@ import { useAuth } from "../../hooks/useAuth";
 
 const LINKS = [
   { label: "Dashboard", to: "/admin", end: true },
+  { label: "Conteúdo do Site", to: "/admin/site-content" },
   { label: "Gerenciar Artigos", to: "/admin/articles" },
   { label: "Gerenciar Categorias", to: "/admin/categories" },
   { label: "Gerenciar Contatos", to: "/admin/contacts" },

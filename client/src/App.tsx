@@ -22,6 +22,7 @@ const ArticlesList = lazy(() => import("./pages/admin/ArticlesList"));
 const ArticleForm = lazy(() => import("./pages/admin/ArticleForm"));
 const CategoriesList = lazy(() => import("./pages/admin/CategoriesList"));
 const ContactsList = lazy(() => import("./pages/admin/ContactsList"));
+const SiteContent = lazy(() => import("./pages/admin/SiteContent"));
 
 function AdminFallback() {
   return (
@@ -73,6 +74,7 @@ export default function App() {
             <Route path="articles/:id/edit" element={<ArticleForm />} />
             <Route path="categories" element={<CategoriesList />} />
             <Route path="contacts" element={<ContactsList />} />
+            <Route path="site-content" element={<SiteContent />} />
           </Route>
         </Routes>
       </AuthProvider>

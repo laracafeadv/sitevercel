@@ -5,6 +5,7 @@ import { articlesRouter } from "./routers/articles.js";
 import { contactsRouter } from "./routers/contacts.js";
 import { testimonialsRouter } from "./routers/testimonials.js";
 import { dashboardRouter } from "./routers/dashboard.js";
+import { siteContentRouter } from "./routers/siteContent.js";
 
 export const appRouter = router({
   auth: authRouter,
@@ -13,6 +14,7 @@ export const appRouter = router({
   contacts: contactsRouter,
   testimonials: testimonialsRouter,
   dashboard: dashboardRouter,
+  siteContent: siteContentRouter,
 });
 
 export type AppRouter = typeof appRouter;

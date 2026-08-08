@@ -61,6 +61,15 @@ export const testimonials = sqliteTable("testimonials", {
     .default(sql`(unixepoch())`),
 });
 
+export const siteContent = sqliteTable("site_content", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  key: text("key").notNull().unique(),
+  data: text("data", { mode: "json" }).notNull(),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(unixepoch())`),
+});
+
 export const adminUsers = sqliteTable("admin_users", {
   id: integer("id").primaryKey({ autoIncrement: true }),
   email: text("email").notNull().unique(),

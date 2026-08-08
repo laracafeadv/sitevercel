@@ -1,59 +1,53 @@
 import Reveal from "./Reveal";
 import Eyebrow from "./Eyebrow";
 import { WHATSAPP_NUMBER } from "../lib/constants";
+import { trpc } from "../lib/trpc";
 
-const GROUPS = [
-  {
-    label: "Família & União",
-    items: [
-      {
-        n: "01",
-        title: "Divórcio",
-        text: "Consensual ou litigioso, conduzido com estratégia e o menor desgaste possível.",
-      },
-      {
-        n: "02",
-        title: "Planejamento matrimonial",
-        text: "Pactos e acordos que antecipam cenários antes que se tornem conflitos.",
-      },
-      {
-        n: "03",
-        title: "União estável",
-        text: "Formalização da relação com todos os efeitos jurídicos garantidos.",
-      },
-      {
-        n: "04",
-        title: "Reconhecimento de união estável",
-        text: "Comprovação e registro da relação para todos os efeitos legais.",
-      },
-      {
-        n: "05",
-        title: "Dissolução de união estável",
-        text: "Encerramento conduzido com respeito e definição clara de direitos.",
-      },
-    ],
-  },
-  {
-    label: "Sucessões",
-    items: [
-      {
-        n: "06",
-        title: "Inventário",
-        text: "Judicial ou extrajudicial, para encerrar o processo com segurança.",
-      },
-      {
-        n: "07",
-        title: "Partilha de bens",
-        text: "Divisão de patrimônio construída com clareza e critério técnico.",
-      },
-      {
-        n: "08",
-        title: "Planejamento sucessório",
-        text: "Estruturas pensadas para proteger quem você deixa para trás.",
-      },
-    ],
-  },
-];
+export interface SpecialtyItem {
+  title: string;
+  text: string;
+}
+
+export interface SpecialtyGroup {
+  label: string;
+  items: SpecialtyItem[];
+}
+
+export interface SpecialtiesContent {
+  eyebrow: string;
+  heading: string;
+  description: string;
+  note: string;
+  groups: SpecialtyGroup[];
+}
+
+export const DEFAULT_SPECIALTIES: SpecialtiesContent = {
+  eyebrow: "Áreas de Atuação",
+  heading: "Um índice da minha atuação",
+  description:
+    "Da formalização de uma união ao encerramento de um inventário, atuo em cada etapa que a vida em família pode exigir.",
+  note: "Toque em qualquer item para conversar diretamente sobre o seu caso.",
+  groups: [
+    {
+      label: "Família & União",
+      items: [
+        { title: "Divórcio", text: "Consensual ou litigioso, conduzido com estratégia e o menor desgaste possível." },
+        { title: "Planejamento matrimonial", text: "Pactos e acordos que antecipam cenários antes que se tornem conflitos." },
+        { title: "União estável", text: "Formalização da relação com todos os efeitos jurídicos garantidos." },
+        { title: "Reconhecimento de união estável", text: "Comprovação e registro da relação para todos os efeitos legais." },
+        { title: "Dissolução de união estável", text: "Encerramento conduzido com respeito e definição clara de direitos." },
+      ],
+    },
+    {
+      label: "Sucessões",
+      items: [
+        { title: "Inventário", text: "Judicial ou extrajudicial, para encerrar o processo com segurança." },
+        { title: "Partilha de bens", text: "Divisão de patrimônio construída com clareza e critério técnico." },
+        { title: "Planejamento sucessório", text: "Estruturas pensadas para proteger quem você deixa para trás." },
+      ],
+    },
+  ],
+};
 
 function itemUrl(title: string) {
   const msg = `Olá, Lara! Gostaria de falar sobre ${title.toLowerCase()}.`;
@@ -61,6 +55,12 @@ function itemUrl(title: string) {
 }
 
 export default function Specialties() {
+  const { data } = trpc.siteContent.get.useQuery({ key: "specialties" });
+  const content = (data as SpecialtiesContent | null) ?? DEFAULT_SPECIALTIES;
+  const { eyebrow, heading, description, note, groups } = content;
+
+  let itemCount = 0;
+
   return (
     <section
       id="areas-de-atuacao"
@@ -77,29 +77,31 @@ export default function Specialties() {
         <div className="grid gap-12 lg:grid-cols-[0.7fr_1.3fr] lg:gap-16">
           <Reveal>
             <div className="lg:sticky lg:top-32">
-              <Eyebrow>Áreas de Atuação</Eyebrow>
+              <Eyebrow>{eyebrow}</Eyebrow>
               <h2 className="max-w-xs text-[1.85rem] font-normal leading-[1.25] tracking-tight text-coffee sm:text-[2.15rem]">
-                Um índice da minha atuação
+                {heading}
               </h2>
               <p className="mt-5 max-w-xs text-[0.9rem] leading-relaxed text-ink/65">
-                Da formalização de uma união ao encerramento de um inventário, atuo em cada
-                etapa que a vida em família pode exigir.
+                {description}
               </p>
               <p className="mt-6 text-[0.8rem] leading-relaxed text-ink/45">
-                Toque em qualquer item para conversar diretamente sobre o seu caso.
+                {note}
               </p>
             </div>
           </Reveal>
 
           <div>
-            {GROUPS.map((group, gi) => (
+            {groups.map((group, gi) => (
               <Reveal key={group.label} delay={gi * 0.08} className={gi > 0 ? "mt-10" : ""}>
                 <p className="mb-1 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-ink/45">
                   {group.label}
                 </p>
                 <ul>
-                  {group.items.map((item) => (
-                    <li key={item.n} className="border-b border-coffee/12 first:border-t">
+                  {group.items.map((item) => {
+                    itemCount += 1;
+                    const n = String(itemCount).padStart(2, "0");
+                    return (
+                    <li key={item.title} className="border-b border-coffee/12 first:border-t">
                       <a
                         href={itemUrl(item.title)}
                         target="_blank"
@@ -107,7 +109,7 @@ export default function Specialties() {
                         className="group flex items-baseline justify-between gap-6 py-5 transition-colors duration-200 hover:text-coffee"
                       >
                         <span className="flex items-baseline gap-5">
-                          <span className="font-serif text-xs text-coffee/40">{item.n}</span>
+                          <span className="font-serif text-xs text-coffee/40">{n}</span>
                           <span className="flex flex-col">
                             <span className="font-serif text-[1.15rem] leading-snug text-coffee transition-colors duration-200 group-hover:text-coffee">
                               {item.title}
@@ -128,7 +130,8 @@ export default function Specialties() {
                         </svg>
                       </a>
                     </li>
-                  ))}
+                    );
+                  })}
                 </ul>
               </Reveal>
             ))}

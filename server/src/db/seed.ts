@@ -115,6 +115,100 @@ async function seed() {
     console.log("Articles already exist, skipping.");
   }
 
+  const siteContentDefaults: Record<string, Record<string, unknown>> = {
+    hero: {
+      quote: "Todo compromisso — construído ou desfeito — merece ser conduzido com o mesmo cuidado.",
+      backgroundImage: "/assets/support-veil-embrace.jpg",
+    },
+    about: {
+      eyebrow: "Sobre mim",
+      heading: "Uma advocacia construída a partir de histórias, escolhas e decisões importantes.",
+      photo: "/assets/lara-foto.png",
+      bioParagraphs: [
+        "Sou advogada com atuação dedicada ao Direito das Famílias e Sucessões, áreas em que o Direito encontra aspectos profundamente humanos: relações construídas ao longo da vida, patrimônios formados com esforço e decisões que podem transformar o futuro.",
+        "Escolhi essa área por compreender que cada questão jurídica carrega uma história única. Mais do que analisar documentos ou apresentar caminhos processuais, é preciso compreender o contexto, os objetivos e aquilo que realmente importa para cada pessoa.",
+        "Acredito que uma boa advocacia começa antes da solução jurídica. Ela nasce da escuta atenta, da compreensão das particularidades de cada caso e da construção de uma estratégia que respeite a realidade e os interesses envolvidos.",
+        "Minha atuação é baseada na união entre conhecimento técnico, planejamento e cuidado. Cada orientação é desenvolvida de forma personalizada, buscando oferecer clareza e segurança para que decisões importantes sejam tomadas com mais tranquilidade.",
+        "Meu compromisso é conduzir cada etapa com discrição, responsabilidade e estratégia, auxiliando meus clientes na proteção de suas relações, seus patrimônios e seus projetos de futuro.",
+      ],
+      sectionHeading: "O cuidado por trás de cada decisão",
+      sectionText:
+        "Cada caso possui suas próprias particularidades. Por isso, acredito em uma advocacia que não oferece respostas prontas, mas constrói caminhos jurídicos adequados à realidade de cada cliente.",
+      pillars: [
+        {
+          title: "Estratégia",
+          text: "Uma decisão bem orientada começa com uma análise completa do cenário, considerando os aspectos jurídicos, familiares e patrimoniais envolvidos.",
+        },
+        {
+          title: "Discrição",
+          text: "Questões familiares e patrimoniais exigem uma condução cuidadosa, baseada em confiança, confidencialidade e respeito.",
+        },
+        {
+          title: "Clareza",
+          text: "O Direito deve ser compreendido por quem precisa tomar decisões. Meu papel é traduzir questões complexas em orientações objetivas e seguras.",
+        },
+        {
+          title: "Planejamento",
+          text: "Antecipar cenários e estruturar soluções jurídicas permite preservar aquilo que foi construído e proporcionar mais segurança para o futuro.",
+        },
+      ],
+    },
+    specialties: {
+      eyebrow: "Áreas de Atuação",
+      heading: "Um índice da minha atuação",
+      description:
+        "Da formalização de uma união ao encerramento de um inventário, atuo em cada etapa que a vida em família pode exigir.",
+      note: "Toque em qualquer item para conversar diretamente sobre o seu caso.",
+      groups: [
+        {
+          label: "Família & União",
+          items: [
+            { title: "Divórcio", text: "Consensual ou litigioso, conduzido com estratégia e o menor desgaste possível." },
+            { title: "Planejamento matrimonial", text: "Pactos e acordos que antecipam cenários antes que se tornem conflitos." },
+            { title: "União estável", text: "Formalização da relação com todos os efeitos jurídicos garantidos." },
+            { title: "Reconhecimento de união estável", text: "Comprovação e registro da relação para todos os efeitos legais." },
+            { title: "Dissolução de união estável", text: "Encerramento conduzido com respeito e definição clara de direitos." },
+          ],
+        },
+        {
+          label: "Sucessões",
+          items: [
+            { title: "Inventário", text: "Judicial ou extrajudicial, para encerrar o processo com segurança." },
+            { title: "Partilha de bens", text: "Divisão de patrimônio construída com clareza e critério técnico." },
+            { title: "Planejamento sucessório", text: "Estruturas pensadas para proteger quem você deixa para trás." },
+          ],
+        },
+      ],
+    },
+    how_it_works: {
+      eyebrow: "Como Funciona",
+      heading: "Um caminho claro, do primeiro contato à solução.",
+      description: "Cada etapa é pensada para trazer segurança e transparência a um momento sensível.",
+      ctaText: "Dar o Primeiro Passo",
+      steps: [
+        { number: "01", title: "Contato inicial", text: "Você apresenta a situação e eu avalio, com sigilo, se e como posso ajudar." },
+        { number: "02", title: "Diagnóstico", text: "Análise aprofundada do caso, para mapear riscos, possibilidades e o melhor caminho jurídico." },
+        { number: "03", title: "Acompanhamento", text: "Condução próxima de cada etapa, com atualizações claras sobre o andamento do caso." },
+        { number: "04", title: "Solução", text: "Uma resposta jurídica sólida — construída para durar, não apenas para resolver o momento." },
+      ],
+    },
+    editorial_band: {
+      quote: "Decisões importantes merecem tempo, escuta e a orientação certa.",
+    },
+    footer: {
+      description:
+        "Advocacia estratégica em Direito de Família e Sucessões — orientação clara, sigilosa e humana, para clientes em todo o Brasil.",
+    },
+  };
+
+  for (const [key, data] of Object.entries(siteContentDefaults)) {
+    const [existing] = await db.select().from(schema.siteContent).where(eq(schema.siteContent.key, key));
+    if (!existing) {
+      await db.insert(schema.siteContent).values({ key, data });
+    }
+  }
+  console.log("Site content seeded.");
+
   const adminEmail = process.env.ADMIN_EMAIL || "admin@laracafeadvocacia.com.br";
   const generatedPassword = process.env.ADMIN_PASSWORD ? null : generateRandomPassword();
   const adminPassword = process.env.ADMIN_PASSWORD || generatedPassword!;
