@@ -120,7 +120,7 @@ export default function Specialties() {
                             <span className="font-serif text-[1.15rem] leading-snug text-coffee transition-colors duration-200 group-hover:text-coffee">
                               {item.title}
                             </span>
-                            <span className="mt-1 max-h-0 max-w-md overflow-hidden text-[0.825rem] leading-relaxed text-ink/55 opacity-0 transition-all duration-300 group-hover:mt-1.5 group-hover:max-h-10 group-hover:opacity-100">
+                            <span className="mt-1.5 max-w-md text-[0.825rem] leading-relaxed text-ink/55">
                               {item.text}
                             </span>
                           </span>
