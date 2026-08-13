@@ -27,7 +27,7 @@ export default function Hero() {
         src={content.backgroundImage}
         alt=""
         aria-hidden
-        className="absolute inset-0 h-full w-full object-cover object-[75%_center]"
+        className="absolute inset-0 h-full w-full object-cover object-[75%_30%]"
       />
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-gradient-to-t from-coffee/85 via-coffee/25 to-transparent" />
 
