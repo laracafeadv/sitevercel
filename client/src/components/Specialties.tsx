@@ -10,6 +10,7 @@ export interface SpecialtyItem {
 
 export interface SpecialtyGroup {
   label: string;
+  description?: string;
   items: SpecialtyItem[];
 }
 
@@ -96,6 +97,11 @@ export default function Specialties() {
                 <p className="mb-1 text-[0.7rem] font-medium uppercase tracking-[0.2em] text-ink/45">
                   {group.label}
                 </p>
+                {group.description && (
+                  <p className="mb-3 max-w-md text-[0.85rem] leading-relaxed text-ink/55">
+                    {group.description}
+                  </p>
+                )}
                 <ul>
                   {group.items.map((item) => {
                     itemCount += 1;
