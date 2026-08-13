@@ -5,6 +5,8 @@ import { trpc } from "../lib/trpc";
 export interface HeroContent {
   quote: string;
   backgroundImage: string;
+  subtitle?: string;
+  ctaLabel?: string;
 }
 
 export const DEFAULT_HERO: HeroContent = {
@@ -54,6 +56,21 @@ export default function Hero() {
             <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
           </svg>
         </a>
+
+        {content.subtitle && (
+          <p className="mt-4 max-w-lg text-[0.95rem] text-cream/75">{content.subtitle}</p>
+        )}
+
+        {content.ctaLabel && (
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-cream/40 px-6 py-2.5 text-[0.78rem] font-medium uppercase tracking-wider text-cream transition-all duration-200 hover:-translate-y-0.5 hover:border-cream hover:bg-cream hover:text-coffee"
+          >
+            {content.ctaLabel}
+          </a>
+        )}
       </motion.div>
 
       <img
