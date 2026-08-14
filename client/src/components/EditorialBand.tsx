@@ -24,13 +24,6 @@ export default function EditorialBand() {
           backgroundRepeat: "repeat",
         }}
       />
-      <img
-        src="/assets/monogram-outline.png"
-        alt=""
-        aria-hidden
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[28rem] w-auto -translate-x-1/2 -translate-y-1/2 opacity-[0.05] invert sm:h-[34rem]"
-      />
-
       <Reveal className="relative mx-auto max-w-2xl px-4 text-center sm:px-6 lg:px-8">
         <span className="mx-auto mb-6 block h-px w-10 bg-cream/50" aria-hidden />
         <p className="font-serif text-[1.4rem] italic leading-snug text-cream sm:text-[1.65rem]">
