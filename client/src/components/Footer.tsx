@@ -1,7 +1,20 @@
 import { Link } from "react-router-dom";
 import { CONTACT_EMAIL, NAV_LINKS, WHATSAPP_DISPLAY, WHATSAPP_URL } from "../lib/constants";
+import { trpc } from "../lib/trpc";
+
+export interface FooterContent {
+  description: string;
+}
+
+export const DEFAULT_FOOTER: FooterContent = {
+  description:
+    "Advocacia estratégica em Direito de Família e Sucessões — orientação clara, sigilosa e humana, para clientes em todo o Brasil.",
+};
 
 export default function Footer() {
+  const { data } = trpc.siteContent.get.useQuery({ key: "footer" });
+  const content = (data as FooterContent | null) ?? DEFAULT_FOOTER;
+
   return (
     <footer className="relative overflow-hidden bg-coffee text-cream">
       <img
@@ -19,8 +32,7 @@ export default function Footer() {
               className="mb-5 h-12 w-auto object-contain"
             />
             <p className="max-w-xs text-sm leading-relaxed text-cream/70">
-              Advocacia estratégica em Direito de Família e Sucessões — orientação clara,
-              sigilosa e humana, para clientes em todo o Brasil.
+              {content.description}
             </p>
           </div>
 

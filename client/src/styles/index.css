@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @theme {
-  --font-serif: "Fraunces", "Iowan Old Style", serif;
-  --font-sans: "Manrope", "Inter", sans-serif;
+  --font-serif: "Cosen", "Iowan Old Style", serif;
+  --font-sans: "Karla", "Inter", sans-serif;
 
   --color-coffee: #3b1f0e;
   --color-coffee-light: #8b6f47;

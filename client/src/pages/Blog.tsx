@@ -45,7 +45,7 @@ export default function Blog() {
     <div>
       <SEO
         title="Blog Jurídico | Lara Café Advocacia"
-        description="Reflexões sobre divórcio, união estável, inventário e planejamento sucessório, escritas para ajudar você a decidir com mais clareza."
+        description="Artigos sobre divórcio, pactos antenupciais, união estável, inventário, partilha de bens, planejamento matrimonial e sucessório, doações e testamentos."
         path={category === "todos" ? "/blog" : `/blog/categoria/${category}`}
       />
 
@@ -66,7 +66,7 @@ export default function Blog() {
           </nav>
           <Eyebrow light>Blog Jurídico</Eyebrow>
           <h1 className="text-[1.85rem] font-normal leading-[1.25] tracking-tight text-cream sm:text-[2.15rem]">
-            Clareza jurídica, um artigo de cada vez
+            Artigos sobre Direito de Família e Sucessões
           </h1>
         </Reveal>
       </section>
