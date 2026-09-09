@@ -66,7 +66,7 @@ export default function Blog() {
           </nav>
           <Eyebrow light>Blog Jurídico</Eyebrow>
           <h1 className="text-[1.85rem] font-normal leading-[1.25] tracking-tight text-cream sm:text-[2.15rem]">
-            Clareza jurídica, um artigo de cada vez
+            Blog de Direito de Família e Sucessões
           </h1>
         </Reveal>
       </section>
