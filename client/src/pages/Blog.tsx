@@ -45,7 +45,7 @@ export default function Blog() {
     <div>
       <SEO
         title="Blog Jurídico | Lara Café Advocacia"
-        description="Conteúdo sobre família e sucessões: divórcio, união estável, planejamento matrimonial e sucessório, inventário judicial e extrajudicial, doações e testamentos."
+        description="Artigos sobre divórcio, guarda, pactos antenupciais, união estável, inventário, partilha de bens, planejamento matrimonial e sucessório, doações e testamentos."
         path={category === "todos" ? "/blog" : `/blog/categoria/${category}`}
       />
 
